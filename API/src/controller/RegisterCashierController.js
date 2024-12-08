@@ -25,10 +25,10 @@ exports.register = async (req, res) => {
       });
     }
 
-    const findUsername = "SELECT * FROM user_cashier WHERE username = ?"
+    const findUsername = "SELECT * FROM users WHERE username = ?"
     const [find] = await db.query(findUsername,[username])
     if(find.length){
-      return res.json({
+      return res.status(400).json({
         message:"user is already exist"
       })
     }
@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
 
     // Insert the new user into the database
     const query =
-      "INSERT INTO user_cashier (username, password_hash, contact,created_at,refreshToken) VALUES (?, ?, ?,?,?)";
+      "INSERT INTO users (username, password_hash, contact,created_at,refreshToken) VALUES (?, ?, ?,?,?)";
 
     // Use promise-based query
     const [results] = await db.query(query, [

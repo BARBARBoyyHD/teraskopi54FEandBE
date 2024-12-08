@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
 
     // Find the user by username
     const [results] = await db.query(
-      "SELECT * FROM user_cashier WHERE username = ?",
+      "SELECT * FROM users WHERE username = ?",
       [username]
     );
 
@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
 
     // Store refresh token in the database
     await db.query(
-      "UPDATE user_cashier SET refreshToken = ? WHERE user_id = ?",
+      "UPDATE users SET refreshToken = ? WHERE user_id = ?",
       [refreshToken, userData.user_id]
     );
 
